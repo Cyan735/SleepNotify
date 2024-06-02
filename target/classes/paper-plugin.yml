@@ -1,0 +1,4 @@
+name: SleepNotify
+version: '4.0'
+main: cyan735.sleepnotify.SleepNotify
+api-version: '1.20'
