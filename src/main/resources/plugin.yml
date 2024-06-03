@@ -1,0 +1,4 @@
+name: SleepNotify
+version: '${project.version}'
+main: cyan735.sleepnotify.SleepNotify
+api-version: '1.20'

@@ -28,59 +28,59 @@ public class SleepListener implements Listener {
                 }
             }
             else if (world.getTime() < 12542 || world.getTime() > 23460) {
-                    if (world.getTime() >= 23460) {
-                        timeUntilNightInTicks = 24000 - world.getTime() + 12542;
-                        timeUntilNightInMinutes = timeUntilNightInTicks / 1200;
-                        timeUntilNightInSeconds = ((timeUntilNightInTicks - timeUntilNightInMinutes * 1200) / 20);
-                        player.sendMessage("You need to wait " + timeUntilNightInMinutes + "m " + timeUntilNightInSeconds + "s");
-                    } else if (world.getTime() <= 12542) {
-                        timeUntilNightInTicks = 12542 - world.getTime();
-                        timeUntilNightInMinutes = timeUntilNightInTicks / 1200;
-                        timeUntilNightInSeconds = ((timeUntilNightInTicks - timeUntilNightInMinutes * 1200) / 20);
-                        player.sendMessage("You need to wait " + timeUntilNightInMinutes + "m " + timeUntilNightInSeconds + "s");
-                    }
+                if (world.getTime() >= 23460) {
+                    timeUntilNightInTicks = 24000 - world.getTime() + 12542;
+                    timeUntilNightInMinutes = timeUntilNightInTicks / 1200;
+                    timeUntilNightInSeconds = ((timeUntilNightInTicks - timeUntilNightInMinutes * 1200) / 20);
+                    player.sendMessage("You need to wait " + timeUntilNightInMinutes + "m " + timeUntilNightInSeconds + "s");
+                } else if (world.getTime() <= 12542) {
+                    timeUntilNightInTicks = 12542 - world.getTime();
+                    timeUntilNightInMinutes = timeUntilNightInTicks / 1200;
+                    timeUntilNightInSeconds = ((timeUntilNightInTicks - timeUntilNightInMinutes * 1200) / 20);
+                    player.sendMessage("You need to wait " + timeUntilNightInMinutes + "m " + timeUntilNightInSeconds + "s");
                 }
-            } else if (world.hasStorm() && !world.isThundering()) {
-                if (world.getTime() > 12010 && world.getTime() < 23992) {
-                    Bukkit.broadcastMessage(PlayerBedEnterEventText);
-                } else if (world.getTime() < 12010 || world.getTime() > 23992) {
-                    if (world.getTime() >= 23992) {
-                        timeUntilNightInTicks = 24000 - world.getTime() + 12010;
-                        timeUntilNightInMinutes = timeUntilNightInTicks / 1200;
-                        timeUntilNightInSeconds = ((timeUntilNightInTicks - timeUntilNightInMinutes * 1200) % 20);
-                        player.sendMessage("You need to wait " + timeUntilNightInMinutes + "m " + timeUntilNightInSeconds + "s");
-                    } else if (world.getTime() <= 12010) {
-                        timeUntilNightInTicks = 12010 - world.getTime();
-                        timeUntilNightInMinutes = timeUntilNightInTicks / 1200;
-                        timeUntilNightInSeconds = ((timeUntilNightInTicks - timeUntilNightInMinutes * 1200) / 20);
-                        player.sendMessage("You need to wait " + timeUntilNightInMinutes + "m " + timeUntilNightInSeconds + "s");
-                    }
-                }
-            } else if (world.isThundering()) {
+            }
+        } else if (world.hasStorm() && !world.isThundering()) {
+            if (world.getTime() > 12010 && world.getTime() < 23992) {
                 Bukkit.broadcastMessage(PlayerBedEnterEventText);
-            }
-        }
-
-        //Returns the amount of sleeping players
-        public int SleepingPlayers() {
-            int SleepingPlayers = 0;
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                if (player.isSleeping()) {
-                    SleepingPlayers++;
-                }
-                SleepingPlayers++;
-            }
-            return SleepingPlayers;
-        }
-
-        //Returns the amount of players in the overworld
-        public int OverworldPlayers() {
-            int OverworldPlayers = 0;
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                if (player.getWorld().getEnvironment() == World.Environment.NORMAL) {
-                    OverworldPlayers++;
+            } else if (world.getTime() < 12010 || world.getTime() > 23992) {
+                if (world.getTime() >= 23992) {
+                    timeUntilNightInTicks = 24000 - world.getTime() + 12010;
+                    timeUntilNightInMinutes = timeUntilNightInTicks / 1200;
+                    timeUntilNightInSeconds = ((timeUntilNightInTicks - timeUntilNightInMinutes * 1200) % 20);
+                    player.sendMessage("You need to wait " + timeUntilNightInMinutes + "m " + timeUntilNightInSeconds + "s");
+                } else if (world.getTime() <= 12010) {
+                    timeUntilNightInTicks = 12010 - world.getTime();
+                    timeUntilNightInMinutes = timeUntilNightInTicks / 1200;
+                    timeUntilNightInSeconds = ((timeUntilNightInTicks - timeUntilNightInMinutes * 1200) / 20);
+                    player.sendMessage("You need to wait " + timeUntilNightInMinutes + "m " + timeUntilNightInSeconds + "s");
                 }
             }
-            return OverworldPlayers;
+        } else if (world.isThundering()) {
+            Bukkit.broadcastMessage(PlayerBedEnterEventText);
         }
     }
+
+    //Returns the amount of sleeping players
+    public int SleepingPlayers() {
+        int SleepingPlayers = 0;
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (player.isSleeping()) {
+                SleepingPlayers++;
+            }
+            SleepingPlayers++;
+        }
+        return SleepingPlayers;
+    }
+
+    //Returns the amount of players in the overworld
+    public int OverworldPlayers() {
+        int OverworldPlayers = 0;
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (player.getWorld().getEnvironment() == World.Environment.NORMAL) {
+                OverworldPlayers++;
+            }
+        }
+        return OverworldPlayers;
+    }
+}
